@@ -19,11 +19,11 @@
     <main class="two-column">
         <section>
             <p>
-                Wanneer code diep genest is zal het de leesbaarheid en onderhoudbaarheid verlagen.<br/>
+                Wanneer code diep genest is zal het de leesbaarheid en onderhoudbaarheid verlagen.<br />
                 Probeer met de volgende patronen/methodieken de genestheid te verlagen:
             <ul>
                 <li>Early Returns</li>
-                <li>Guard Clauses</li>
+                <li>Guard Clauses / Inversion</li>
                 <li>Opbreken in functies</li>
             </ul>
             </p>
@@ -43,12 +43,35 @@ namespace CleanCode;
 public class DenestingCode
 {
     private EditContext form;
-    public bool ReturnResult()
+    private List<string> validationMessages = new List<string>();
+
+    public bool Validate()
     {
-        if (EditContext.Validate() == false)
+        var result = false;
+        if (form.IsModified())
         {
-            if (EditContext.)    
+            if (form.Validate() == false)
+            {
+                validationMessages.Clear();
+                if (form.Field("CurrentPassword") != form.Field("NewPassword"))
+                {
+                    validationMessages.Add("Wachtwoorden komen niet overeen");
+                }
+                if (form.Field("CurrentPassword").Length < 10)
+                {
+                    validationMessages.Add("Wachtwoord niet lang genoeg");
+                }
+                result = false;
+            } else {
+                validationMessages.Clear();
+                result = true;
+            }
+        } else {
+            validationMessages.Clear();
+            result = true;
         }
+
+        return result;
     }
 }
         </code></pre>
@@ -59,15 +82,56 @@ namespace CleanCode;
 
 public class DenestingCode
 {
-    public bool ReturnResult()
-    {
+    private EditContext form;
+    private List<string> validationMessages = new List<string>();
 
+    public bool Validate()
+    {
+        // Guard Clauses / inversion
+        // -> Eerst de voorwaarden.
+        // -> Is het formulier gewijzigd en/of valide?
+        if (!form.IsModified() || form.Validate())
+        {
+            validationMessages.Clear();
+            // Early return
+            return true;
+        }
+
+        // Opbreken in functies
+        // -> Dan uitvoeren
+        // -> Toevoegen van validatiemeldingen (single responsability) apart uitvoeren.
+        return AddValidationMessages();
+    }
+
+    private bool AddValidationMessages()
+    {
+        validationMessages.Clear();
+        if (form.Field("CurrentPassword") != form.Field("NewPassword"))
+        {
+            validationMessages.Add("Wachtwoorden komen niet overeen");
+        }
+        if (form.Field("CurrentPassword").Length < 10)
+        {
+            validationMessages.Add("Wachtwoord niet lang genoeg");
+        }
+        return validationMessages.Any() == false;
     }
 }
                 </code></pre>
         </section>
     </main>
-    <footer></footer>
+    <footer>
+        <h2>Referenties</h2>
+        <ul>
+            <li>
+                <a href="https://dev.to/naucode/the-secret-to-clean-and-efficient-code-how-to-denest-your-code-af1">dev.to</a> The
+                Secret to Clean and Efficient Code: How to Denest your code
+            </li>
+            <li>
+                <a href="https://en.wikibooks.org/wiki/Computer_Programming/Coding_Style/Minimize_nesting">en.wikibooks.org</a> Computer Programming/Coding Style/Minimize nesting
+            </li>
+        </ul>
+    </footer>
 </body>
 
 </html>
