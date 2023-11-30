@@ -1,0 +1,70 @@
+body {
+    background-color: #1D1B22;
+    font-family: 'Poppins', sans-serif;
+    color: #eee;
+    margin: 40px;
+}
+
+header {}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+code {
+    font-size: 1.5em;
+}
+
+main.two-column {
+    display: flex;
+}
+
+main.two-column section {
+
+    flex: 1;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic);
+
+blockquote {
+    margin:0;
+    font-size: 1.4em;
+
+    font-style: italic;
+    color: #555555;
+    padding: 1.2em 30px 1.2em 75px;
+    border-left: 8px solid #78C0A8;
+    line-height: 1.6;
+    position: relative;
+    background: #EDEDED;
+}
+
+blockquote::before {
+    font-family: Arial;
+    content: "\201C";
+    color: #78C0A8;
+    font-size: 4em;
+    position: absolute;
+    left: 10px;
+    top: -10px;
+}
+
+blockquote::after {
+    content: '';
+}
+
+blockquote span {
+    display: block;
+    color: #333333;
+    font-style: normal;
+    font-weight: bold;
+    margin-top: 1em;
+}

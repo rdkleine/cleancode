@@ -1,0 +1,74 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dracula.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Denesting Code</h1>
+    </header>
+    <main class="two-column">
+        <section>
+            <p>
+                Wanneer code diep genest is zal het de leesbaarheid en onderhoudbaarheid verlagen.<br/>
+                Probeer met de volgende patronen/methodieken de genestheid te verlagen:
+            <ul>
+                <li>Early Returns</li>
+                <li>Guard Clauses</li>
+                <li>Opbreken in functies</li>
+            </ul>
+            </p>
+        </section>
+        <section>
+            <blockquote>
+                If you need more then three lines of indentation you're screwed anyway and should fix your program.
+                <br />~ Linus
+            </blockquote>
+        </section>
+    </main>
+    <main class="two-column">
+        <section>
+            <pre><code class="csharp">
+namespace CleanCode;
+
+public class DenestingCode
+{
+    private EditContext form;
+    public bool ReturnResult()
+    {
+        if (EditContext.Validate() == false)
+        {
+            if (EditContext.)    
+        }
+    }
+}
+        </code></pre>
+        </section>
+        <section>
+            <pre><code class="csharp">
+namespace CleanCode;
+
+public class DenestingCode
+{
+    public bool ReturnResult()
+    {
+
+    }
+}
+                </code></pre>
+        </section>
+    </main>
+    <footer></footer>
+</body>
+
+</html>
+<script>hljs.highlightAll();</script>
