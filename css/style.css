@@ -54,6 +54,7 @@ blockquote {
     line-height: 1.6;
     position: relative;
     background: #EDEDED;
+    margin-bottom: 2px;
 }
 
 blockquote::before {
