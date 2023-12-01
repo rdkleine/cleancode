@@ -20,7 +20,7 @@ h3 {
 }
 
 code {
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 main.two-column {
@@ -28,13 +28,16 @@ main.two-column {
 }
 
 main.two-column section {
-
+    width: 50%;
     flex: 1;
     margin-right: 20px;
 }
 
 footer li {
     font-size: 1.4em;
+}
+pre {
+    color:#8be9fd;
 }
 footer a {
     color: white;
@@ -45,7 +48,7 @@ footer a {
 
 blockquote {
     margin:0;
-    font-size: 1.4em;
+    font-size: 1.2em;
 
     font-style: italic;
     color: #555555;

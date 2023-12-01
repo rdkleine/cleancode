@@ -1,0 +1,114 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dracula.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 - Nullables</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Nullables</h1>
+    </header>
+    <main class="two-column">
+        <section>
+            <p>
+                <pre>System.Nullable&lt;T&gt; || int? || string?</pre>
+                Een nullable type representeert de normale waarde van het type + de null waarde. <br/>
+                Gebruik dit <b>alleen</b> als het zeker is dat de waarde onbekend of absent is. 
+                
+            <ul>
+                <li>Gebruik van guards</li>
+                <li><pre>NullReferenceException</pre></li>
+            </ul>
+            </p>
+        </section>
+        <section>
+            <blockquote>
+                I call it my billion-dollar mistake. It was the invention of the null reference in 1965... This has led to innumerable errors, vulnerabilities, and system crashes, which have probably caused a billion dollars of pain and damage in the last forty years.
+                <br />~Tony Hoare, British computer scientist, who introduced the null reference in ALGOL W language.
+            </blockquote>
+        </section>
+    </main>
+    <main class="two-column">
+        <section>
+            <pre><code class="csharp">
+namespace CleanCode;
+
+public class Nullables
+{
+    public class PersonModel
+    {
+        public int? Id { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public DateTime? BirthDate { get; set; }
+    }
+
+    public void PerformSomeAction(PersonModel? model)
+    {
+        // Altijd moeten checken op bestaan van waarden
+        if (model?.Id.HasValue != true)
+        {
+            return;
+        }
+
+        var fullName = model!.FirstName ?? String.Empty + 
+            " " + model.LastName ?? String.Empty;
+        // do something
+        Act(model.Id, fullName);
+    }
+}
+        </code></pre>
+        </section>
+        <section>
+            <pre><code class="csharp">
+namespace CleanCode;
+
+public class Nullables
+{
+    public class PersonModel
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        // Geboortedatum kan onbekend zijn
+        public DateTime? BirthDate { get; set; }
+    }
+
+    // Functie is alleen bruikbaar bij een niet null model.
+    public void PerformSomeAction(PersonModel model)
+    {
+        var fullName = model.FirstName + " " + model.LastName;
+        // do something
+        Act(model.Id, fullName);
+    }
+}
+                </code></pre>
+        </section>
+    </main>
+    <footer>
+        <h2>Referenties</h2>
+        <ul>
+            <li>
+                <a href="https://dev.to/naucode/the-secret-to-clean-and-efficient-code-how-to-denest-your-code-af1">dev.to</a> The
+                Secret to Clean and Efficient Code: How to Denest your code
+            </li>
+            <li>
+                <a href="https://en.wikibooks.org/wiki/Computer_Programming/Coding_Style/Minimize_nesting">en.wikibooks.org</a> Computer Programming/Coding Style/Minimize nesting
+            </li>
+            <li>
+                <a href="https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references">learn.microsoft.com</a> Nullable reference types
+            </li>
+        </ul>
+    </footer>
+</body>
+
+</html>
+<script>hljs.highlightAll();</script>
