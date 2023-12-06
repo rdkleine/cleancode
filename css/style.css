@@ -5,7 +5,9 @@ body {
     margin: 40px;
 }
 
-header {}
+header a {
+    text-decoration: none;
+}
 
 h1 {
     font-size: 2em;
@@ -22,26 +24,40 @@ h3 {
 code {
     font-size: 1.2em;
 }
-
+main.index {
+    display: flex;
+}
+main.index section:not:first-child      {
+    background-color: yellow;
+}
+main.index section:first-child {
+    width:300px;
+}
 main.two-column {
     display: flex;
 }
 
-main.two-column section {
-    width: 50%;
+main.two-column section 
+{
     flex: 1;
     margin-right: 20px;
 }
+main.two-column section.small {
+    flex: 1;
+    width: min-content;
+}
+main.two-column section.large {
+    flex: 5;
+}
 
-footer li {
+footer li, ol.links li {
     font-size: 1.4em;
 }
 pre {
     color:#8be9fd;
 }
-footer a {
+a {
     color: white;
-
 }
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic);

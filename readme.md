@@ -34,15 +34,3 @@ TODO Hieronder uitwerken...
 
 Deze aanpak combineert theorie met praktijk en houdt rekening met de verschillende ervaringsniveaus van je publiek. Het is een balans tussen het delen van kennis en het actief betrekken van je team.
 
-Usings
-Yagni
-Public private
-Naming
-caching
-Boyscout rules
-Nullables
-Denesting code
-
-
-If you need more than three lines of indentation you’re screwed anyway and should fix your program. 
-Linus 

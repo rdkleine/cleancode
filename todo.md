@@ -1,10 +1,22 @@
 # Topics
-- [ ] Usings
-- [.6] Yagni / dsttcpw
-- [ ] Public / Private
-- [ ] Naming
-- [ ] Caching
-- [ ] Boyscout rules
 - [.8] Nullables
-- [x] Denesting code
-- [ ] Statics / State (global state)
+- [x]  Denesting code
+- [.6] Yagni / dsttcpw
+- [ ]  Naming
+- [.]  Boyscout rules
+- [ ]  Public / Private
+- [ ]  Caching
+- [ ]  Statics / State (global state)
+- [ ]  Usings
+- Exception handling
+- Dependency injection
+- Code Reviews
+- Pair Programming
+- Async / Concurrency
+- Secure Coding
+- Refactoring technieken
+
+
+# Advanced
+- [ ] Design patterns
+- [ ] Solid

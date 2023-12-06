@@ -9,24 +9,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1 - Nullables</title>
+    <title>4 - Naming</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
-        <h1>Nullables</h1>
-        <a href="./index.html">&lt;</a>
+        <h1>Naming</h1>
     </header>
     <main class="two-column">
         <section>
             <p>
-                <pre>System.Nullable&lt;T&gt; || int? || string?</pre>
-                Een nullable type representeert de normale waarde van het type + de null waarde. <br/>
-                Gebruik dit <b>alleen</b> als het zeker is dat de waarde onbekend of absent is. 
-            <ul>
-                <li>Gebruik van guards</li>
-                <li><pre>NullReferenceException</pre></li>
-            </ul>
+                
+                <ul>
+                </ul>
             </p>
         </section>
         <section>
@@ -43,27 +38,7 @@ namespace CleanCode;
 
 public class Nullables
 {
-    public class PersonModel
-    {
-        public int? Id { get; set; }
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public DateTime? BirthDate { get; set; }
-    }
-
-    public void PerformSomeAction(PersonModel? model)
-    {
-        // Altijd moeten checken op bestaan van waarden
-        if (model?.Id.HasValue != true)
-        {
-            return;
-        }
-
-        var fullName = model!.FirstName ?? String.Empty + 
-            " " + model.LastName ?? String.Empty;
-        // do something
-        Act(model.Id, fullName);
-    }
+    
 }
         </code></pre>
         </section>
@@ -73,22 +48,6 @@ namespace CleanCode;
 
 public class Nullables
 {
-    public class PersonModel
-    {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        // Geboortedatum kan onbekend zijn
-        public DateTime? BirthDate { get; set; }
-    }
-
-    // Functie is alleen bruikbaar bij een niet null model.
-    public void PerformSomeAction(PersonModel model)
-    {
-        var fullName = model.FirstName + " " + model.LastName;
-        // do something
-        Act(model.Id, fullName);
-    }
 }
                 </code></pre>
         </section>
