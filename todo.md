@@ -1,7 +1,7 @@
 # Topics
-- [.8] Nullables
+- [x] Nullables
 - [x]  Denesting code
-- [.6] Yagni / dsttcpw
+- [90%] Yagni / dsttcpw
 - [ ]  Naming
 - [.]  Boyscout rules
 - [ ]  Public / Private
@@ -16,6 +16,9 @@
 - Secure Coding
 - Refactoring technieken
 
+# Todo's voor eerste sessie
+- [ ] Youtube video refs toevoegen
+- [ ] .gitignore md files verwijderen
 
 # Advanced
 - [ ] Design patterns

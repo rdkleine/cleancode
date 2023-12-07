@@ -31,7 +31,7 @@ main.index section:not:first-child      {
     background-color: yellow;
 }
 main.index section:first-child {
-    width:300px;
+    width:400px;
 }
 main.two-column {
     display: flex;

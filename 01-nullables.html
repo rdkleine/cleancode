@@ -53,13 +53,14 @@ public class Nullables
 
     public void PerformSomeAction(PersonModel? model)
     {
-        // Altijd moeten checken op bestaan van waarden
+        // Altijd moeten checken op bestaan van waarden.
         if (model?.Id.HasValue != true)
         {
             return;
         }
 
-        var fullName = model!.FirstName ?? String.Empty + 
+        // Bij gebruik van "!" risico dat waarde null is (NullReferenceException) 
+        var fullName = model!.FirstName! ?? String.Empty + 
             " " + model.LastName ?? String.Empty;
         // do something
         Act(model.Id, fullName);
