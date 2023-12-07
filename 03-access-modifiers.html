@@ -1,0 +1,171 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dracula.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 - Access Modifiers</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Acces Modifiers</h1>
+        <a href="./index.html">&lt;</a>
+    </header>
+    <main class="two-column">
+        <section>
+            <p>
+                Toegangsmodificatoren (access modifiers) zijn een belangrijk onderdeel van OOP (object oriented programming). 
+            <ul>
+                <li>Gebruik van guards</li>
+                <li><pre>NullReferenceException</pre></li>
+            </ul>
+            </p>
+        </section>
+        <section>
+            <blockquote>
+                I call it my billion-dollar mistake. It was the invention of the null reference in 1965... This has led to innumerable errors, vulnerabilities, and system crashes, which have probably caused a billion dollars of pain and damage in the last forty years.
+                <br />~Tony Hoare, British computer scientist, who introduced the null reference in ALGOL W language.
+            </blockquote>
+        </section>
+    </main>
+    <main class="two-column">
+        <section>
+            <pre><code class="csharp">
+namespace CleanCode;
+
+public class Nullables
+{
+    public class PersonModel
+    {
+        public int? Id { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public DateTime? BirthDate { get; set; }
+    }
+
+    public void PerformSomeAction(PersonModel? model)
+    {
+        // Altijd moeten checken op bestaan van waarden.
+        if (model?.Id.HasValue != true)
+        {
+            return;
+        }
+
+        // Bij gebruik van "!" risico dat waarde null is (NullReferenceException) 
+        var fullName = model!.FirstName! ?? String.Empty + 
+            " " + model.LastName ?? String.Empty;
+        // do something
+        Act(model.Id, fullName);
+    }
+}
+        </code></pre>
+        </section>
+        <section>
+            <pre><code class="csharp">
+namespace CleanCode;
+
+public class Nullables
+{
+    public class PersonModel
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        // Geboortedatum kan onbekend zijn
+        public DateTime? BirthDate { get; set; }
+    }
+
+    // Functie is alleen bruikbaar bij een niet null model.
+    public void PerformSomeAction(PersonModel model)
+    {
+        var fullName = model.FirstName + " " + model.LastName;
+        // do something
+        Act(model.Id, fullName);
+    }
+}
+                </code></pre>
+        </section>
+    </main>
+    <footer>
+        <h2>Referenties</h2>
+        <ul>
+            <li>
+                <a href="https://dev.to/naucode/the-secret-to-clean-and-efficient-code-how-to-denest-your-code-af1">dev.to</a> The
+                Secret to Clean and Efficient Code: How to Denest your code
+            </li>
+            <li>
+                <a href="https://en.wikibooks.org/wiki/Computer_Programming/Coding_Style/Minimize_nesting">en.wikibooks.org</a> Computer Programming/Coding Style/Minimize nesting
+            </li>
+            <li>
+                <a href="https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references">learn.microsoft.com</a> Nullable reference types
+            </li>
+        </ul>
+    </footer>
+</body>
+
+</html>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+
+
+
+
+
+
+Toegangsmodificatoren (access modifiers) zijn belangrijk in C# en andere objectgeoriënteerde programmeertalen om verschillende redenen, die allemaal bijdragen aan een robuust en goed gestructureerd softwareontwerp:
+
+1. **Inkapseling**: Dit is een van de kernprincipes van objectgeoriënteerd programmeren. Door het gebruik van toegangsmodificatoren kun je de interne staat van een object verbergen en alleen bepaalde delen ervan blootstellen. Dit betekent dat de interne implementatie van een klasse kan veranderen zonder dat dit invloed heeft op andere delen van het programma die van de klasse gebruikmaken.
+
+2. **Beveiliging**: Door gevoelige data of functionaliteit als `private` of `protected` te markeren, voorkom je dat ze door andere delen van het programma worden misbruikt of onbedoeld worden gewijzigd. Dit helpt bij het handhaven van de data-integriteit en het voorkomen van fouten.
+
+3. **Modulariteit**: Toegangsmodificatoren bevorderen modulariteit in softwareontwerp. Je kunt componenten van je programma op een zodanige manier ontwerpen dat ze onafhankelijk zijn van elkaar, waardoor onderhoud en uitbreiding van de software makkelijker wordt.
+
+4. **Onderhoudbaarheid**: Door de toegang tot bepaalde delen van de code te beperken, wordt de complexiteit van de codebase verminderd. Dit maakt het makkelijker om de code te begrijpen, te onderhouden en te debuggen.
+
+5. **Duidelijkheid in Gebruik**: Toegangsmodificatoren geven andere ontwikkelaars duidelijkheid over hoe een klasse of methode bedoeld is om gebruikt te worden. Bijvoorbeeld, als een methode `private` is, weet een andere ontwikkelaar dat deze niet bedoeld is voor extern gebruik.
+
+6. **Flexibiliteit en Hergebruik**: Door correct gebruik te maken van toegangsmodificatoren, kan een ontwikkelaar een bibliotheek of een klasse ontwerpen die flexibel genoeg is om in verschillende contexten te worden hergebruikt, zonder dat de gebruikers ervan zich zorgen hoeven te maken over de interne werking.
+
+In het algemeen helpen toegangsmodificatoren dus bij het creëren van veiligere, beter gestructureerde en makkelijker te onderhouden software.
+
+Toegangsmodificatoren (access modifiers) in C# kunnen worden toegepast op verschillende onderdelen van een klasse of structuur. Hier zijn enkele van de belangrijkste gebieden waar ze van toepassing zijn:
+
+Klassen: Je kunt toegangsmodificatoren gebruiken om de toegankelijkheid van de gehele klasse te bepalen. Bijvoorbeeld, een public klasse is toegankelijk vanuit elke andere klasse, terwijl een internal klasse beperkt is tot de eigen assembly.
+
+Methoden: Je kunt toegangsmodificatoren gebruiken om te bepalen wie methoden van de klasse kan aanroepen. Dit kan variëren van publieke toegang (overal aanroepbaar) tot private toegang (alleen binnen de eigen klasse).
+
+Eigenschappen (Properties): Net als methoden, kunnen eigenschappen verschillende toegangsniveaus hebben om te bepalen wie ze kan lezen of schrijven.
+
+Velden (Fields): Velden kunnen worden afgeschermd van directe toegang van buiten de klasse, wat belangrijk is voor inkapseling en data-integriteit.
+
+Constructors: Toegangsmodificatoren voor constructors bepalen hoe en waar een klasse kan worden geïnstantieerd.
+
+Delegates en Events: Deze kunnen ook toegangsmodificatoren hebben om hun zichtbaarheid en toegankelijkheid te bepalen.
+
+Interfaces en Enums: Hoewel meestal publiek, kunnen interfaces en enums ook toegangsmodificatoren hebben om hun zichtbaarheid te beperken.
+
+Nested Classes: Klassen gedefinieerd binnen andere klassen (genest) kunnen hun eigen toegangsmodificatoren hebben, onafhankelijk van de omliggende klasse.
+
+De keuze van toegangsmodificatoren is een belangrijk onderdeel van het ontwerp van je software, omdat het helpt bij het beheren van de toegang tot de functionaliteit van je code en het handhaven van de inkapseling.
+
+
+
+De termen "public", "private", en soortgelijke in C# zijn bekend als "toegangsmodificatoren" (in het Engels "access modifiers"). Deze modificatoren bepalen de zichtbaarheid en toegankelijkheid van een klasse, methode, eigenschap, of ander lid in je code.
+
+public: Het lid is overal toegankelijk.
+private: Het lid is alleen toegankelijk binnen de klasse waarin het is gedefinieerd.
+protected: Het lid is toegankelijk binnen de klasse waarin het is gedefinieerd en in afgeleide klassen.
+internal: Het lid is toegankelijk binnen de eigen assembly, maar niet daarbuiten.
+protected internal: Het lid is toegankelijk binnen de eigen assembly en in afgeleide klassen.
+private protected: Het lid is toegankelijk binnen de eigen klasse en in afgeleide klassen die zich in dezelfde assembly bevinden.
+Deze modificatoren zijn fundamenteel voor het concept van inkapseling in objectgeoriënteerd programmeren, waarbij je bepaalt welke informatie of functionaliteit van een object naar buiten wordt blootgesteld.

@@ -20,7 +20,11 @@ h2 {
 h3 {
     font-size: 1.2em;
 }
-
+em {
+    font-size: 1.15em;
+    color:white;
+    line-height: 150%;
+}
 code {
     font-size: 1.2em;
 }
