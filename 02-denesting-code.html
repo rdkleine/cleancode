@@ -22,9 +22,9 @@
                 Wanneer code diep genest is zal het de leesbaarheid en onderhoudbaarheid verlagen.<br />
                 Probeer met de volgende patronen/methodieken de genestheid te verlagen:
             <ul>
-                <li>Early Returns</li>
-                <li>Guard Clauses / Inversion</li>
-                <li>Opbreken in functies</li>
+                <li><tag>1</tag> Early Returns</li> Zodra het resultaat bepaald kan worden de functie verlaten.
+                <li><tag>2</tag> Guard Clauses / Inversion</li> Eerst alle guards langs pas op het eind de actie.
+                <li><tag>3</tag> Opbreken in functies</li> Niet alles binnen een functie maar logische blokken maken door code los te trekken.
             </ul>
             </p>
         </section>
@@ -87,17 +87,17 @@ public class DenestingCode
 
     public bool Validate()
     {
-        // Guard Clauses / inversion
+        // (2) Guard Clauses / inversion
         // -> Eerst de voorwaarden.
         // -> Is het formulier gewijzigd en/of valide?
         if (!form.IsModified() || form.Validate())
         {
             validationMessages.Clear();
-            // Early return
+            // (1) Early return
             return true;
         }
 
-        // Opbreken in functies
+        // (3) Opbreken in functies
         // -> Dan uitvoeren
         // -> Toevoegen van validatiemeldingen (single responsability) apart uitvoeren.
         return AddValidationMessages();

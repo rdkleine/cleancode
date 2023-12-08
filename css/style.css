@@ -28,6 +28,8 @@ em {
 code {
     font-size: 1.2em;
 }
+
+/* Index page */
 main.index {
     display: flex;
 }
@@ -37,21 +39,27 @@ main.index section:not:first-child      {
 main.index section:first-child {
     width:400px;
 }
+
+
 main.two-column {
     display: flex;
 }
-
 main.two-column section 
 {
     flex: 1;
     margin-right: 20px;
 }
+
 main.two-column section.small {
     flex: 1;
     width: min-content;
 }
 main.two-column section.large {
     flex: 5;
+}
+main.two-column section.fifty {
+    width: 50%;
+    min-width: 500px;
 }
 
 footer li, ol.links li {
@@ -62,6 +70,14 @@ pre {
 }
 a {
     color: white;
+}
+
+tag {
+    background-color: #ff79c6;
+    color: #282a36;
+    font-weight: bold;
+    border-radius: 15px;
+    padding: 1px 7px 1px 7px;
 }
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic);
