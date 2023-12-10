@@ -15,22 +15,22 @@
 <body>
     <header>
         <h1>Acces Modifiers</h1>
-        <a href="./index.html">&lt;</a>
     </header>
     <main class="two-column">
         <section>
             <p>
                 Toegangsmodificatoren (access modifiers) zijn een belangrijk onderdeel van OOP (object oriented programming). 
             <ul>
-                <li>Gebruik van guards</li>
-                <li><pre>NullReferenceException</pre></li>
+                <li><b>Encapsulate</b> Een kernpricipe van OOP. Door toegangsmodificatoren te gebruik verberg je de (interne) staat van een object.</li>
+                <li><b>Security</b> Toegang tot (gevoelige) data wordt verborgen hierdoor kan deze niet misbruikt worden of onbedoeld worden gewijzigd.</li>
+                <li><b>Abstraction</b> Verbergen van complexiteit waarbij alleen de functies/data beschikbaar worden gesteld die belangrijk zijn voor de aanroeper.</li>
             </ul>
             </p>
         </section>
         <section>
             <blockquote>
-                I call it my billion-dollar mistake. It was the invention of the null reference in 1965... This has led to innumerable errors, vulnerabilities, and system crashes, which have probably caused a billion dollars of pain and damage in the last forty years.
-                <br />~Tony Hoare, British computer scientist, who introduced the null reference in ALGOL W language.
+                Any good software design will emphasize the idea of minimizing coupling and maximizing cohesion. Access modifiers are key tools in achieving this by hiding internal state and exposing only what is necessary.
+                <br />~Martin Fowler.
             </blockquote>
         </section>
     </main>
@@ -39,29 +39,28 @@
             <pre><code class="csharp">
 namespace CleanCode;
 
-public class Nullables
+public class AccessModifiers
 {
-    public class PersonModel
+    public const string salt = "verysecretsalt";
+    public UserModel user;
+
+    public bool CheckPasswordHash(string userId, string hash)
     {
-        public int? Id { get; set; }
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public DateTime? BirthDate { get; set; }
+        LoadUser(userId);
+        return CalculateHash(user, salt) == hash;
     }
 
-    public void PerformSomeAction(PersonModel? model)
+    public void LoadUser(string userId)
     {
-        // Altijd moeten checken op bestaan van waarden.
-        if (model?.Id.HasValue != true)
-        {
-            return;
-        }
+        // do some loading
+        user = Service.GetUserModel(userId);
+    }
 
-        // Bij gebruik van "!" risico dat waarde null is (NullReferenceException) 
-        var fullName = model!.FirstName! ?? String.Empty + 
-            " " + model.LastName ?? String.Empty;
-        // do something
-        Act(model.Id, fullName);
+    public class UserModel
+    {
+        public string UserId { get; set; }
+        public string Password { get; set; }
+        public string SecretKey { get; set; }
     }
 }
         </code></pre>
@@ -70,23 +69,28 @@ public class Nullables
             <pre><code class="csharp">
 namespace CleanCode;
 
-public class Nullables
+public class AccessModifiers
 {
-    public class PersonModel
+    internal const string salt = "verysecretsalt";
+    private UserModel user;
+
+    public bool CheckPasswordHash(string userId, string hash)
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        // Geboortedatum kan onbekend zijn
-        public DateTime? BirthDate { get; set; }
+        LoadUser(userId);
+        return CalculateHash(user, salt) == hash;
     }
 
-    // Functie is alleen bruikbaar bij een niet null model.
-    public void PerformSomeAction(PersonModel model)
+    private void LoadUser(string userId)
     {
-        var fullName = model.FirstName + " " + model.LastName;
-        // do something
-        Act(model.Id, fullName);
+        // do some loading
+        user = Service.GetUserModel(userId);
+    }
+
+    private class UserModel
+    {
+        public string UserId { get; set; }
+        public string Password { get; set; }
+        public string SecretKey { get; set; }
     }
 }
                 </code></pre>
@@ -96,14 +100,10 @@ public class Nullables
         <h2>Referenties</h2>
         <ul>
             <li>
-                <a href="https://dev.to/naucode/the-secret-to-clean-and-efficient-code-how-to-denest-your-code-af1">dev.to</a> The
-                Secret to Clean and Efficient Code: How to Denest your code
+                <a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/access-modifiers">learn.microsoft.com</a> Access Modifiers (C# Programming Guide)
             </li>
             <li>
-                <a href="https://en.wikibooks.org/wiki/Computer_Programming/Coding_Style/Minimize_nesting">en.wikibooks.org</a> Computer Programming/Coding Style/Minimize nesting
-            </li>
-            <li>
-                <a href="https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references">learn.microsoft.com</a> Nullable reference types
+                <a href="https://www.youtube.com/watch?v=jcn5uCZAk2w">www.youtube.com</a> C# Access Modifiers (beyond public and private) - what they are, how to use them, and best practices
             </li>
         </ul>
     </footer>
@@ -113,7 +113,7 @@ public class Nullables
 <script>hljs.highlightAll();</script>
 
 
-
+<!-- 
 
 
 
@@ -168,4 +168,4 @@ protected: Het lid is toegankelijk binnen de klasse waarin het is gedefinieerd e
 internal: Het lid is toegankelijk binnen de eigen assembly, maar niet daarbuiten.
 protected internal: Het lid is toegankelijk binnen de eigen assembly en in afgeleide klassen.
 private protected: Het lid is toegankelijk binnen de eigen klasse en in afgeleide klassen die zich in dezelfde assembly bevinden.
-Deze modificatoren zijn fundamenteel voor het concept van inkapseling in objectgeoriënteerd programmeren, waarbij je bepaalt welke informatie of functionaliteit van een object naar buiten wordt blootgesteld.
+Deze modificatoren zijn fundamenteel voor het concept van inkapseling in objectgeoriënteerd programmeren, waarbij je bepaalt welke informatie of functionaliteit van een object naar buiten wordt blootgesteld. -->

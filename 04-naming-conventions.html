@@ -9,40 +9,59 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4 - Naming</title>
+    <title>4 - Naming Conventions</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
-        <h1>Naming</h1>
+        <h1>Naming conventions</h1>
     </header>
     <main class="two-column">
         <section>
             <p>
-                
+                Binnen C# bestaan er geen strikte 'regels' voor de benaming van elementen. <br/>Er zijn echter wel algemeen geaccepteerde richtlijnen voor hoe je dingen benoemt.
                 <ul>
+                    <li><b>PascalCase</b> voor Classes, Methods en constants.</li>
+                    <li><b>camelCase</b> voor local variables en method arguments.</li>
+                    <li><b>_camelCase</b> voor private fields</li>
+                    <li><b>I</b> interface prefixes</li>
                 </ul>
             </p>
         </section>
-        <section>
+        <!-- <section>
             <blockquote>
                 I call it my billion-dollar mistake. It was the invention of the null reference in 1965... This has led to innumerable errors, vulnerabilities, and system crashes, which have probably caused a billion dollars of pain and damage in the last forty years.
                 <br />~Tony Hoare, British computer scientist, who introduced the null reference in ALGOL W language.
             </blockquote>
-        </section>
+        </section> -->
     </main>
     <main class="two-column">
         <section>
             <pre><code class="csharp">
 namespace CleanCode;
 
-public class Nullables
+public interface INamingConventions
+{}
+
+public class NamingConventions: INamingConventions
 {
+    private string _localValue;
+
+    private const string DefaultValue = "bla";
     
+    public string Value { get; set; }
+    
+    public string GetLocalValue()
+    => _localValue;
+    
+    public void SetLocalValue(string value)
+    {
+        _localValue = value ?? DefaultValue;
+    }
 }
         </code></pre>
         </section>
-        <section>
+        <!-- <section>
             <pre><code class="csharp">
 namespace CleanCode;
 
@@ -50,21 +69,20 @@ public class Nullables
 {
 }
                 </code></pre>
-        </section>
+        </section> -->
     </main>
     <footer>
         <h2>Referenties</h2>
         <ul>
             <li>
-                <a href="https://dev.to/naucode/the-secret-to-clean-and-efficient-code-how-to-denest-your-code-af1">dev.to</a> The
-                Secret to Clean and Efficient Code: How to Denest your code
+                <a href="https://github.com/ktaranov/naming-convention/blob/master/C%23%20Coding%20Standards%20and%20Naming%20Conventions.md">github.com</a> # Coding Standards and Naming Conventions
             </li>
-            <li>
+            <!-- <li>
                 <a href="https://en.wikibooks.org/wiki/Computer_Programming/Coding_Style/Minimize_nesting">en.wikibooks.org</a> Computer Programming/Coding Style/Minimize nesting
             </li>
             <li>
                 <a href="https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references">learn.microsoft.com</a> Nullable reference types
-            </li>
+            </li> -->
         </ul>
     </footer>
 </body>
