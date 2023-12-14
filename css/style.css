@@ -20,11 +20,13 @@ h2 {
 h3 {
     font-size: 1.2em;
 }
+
 em {
     font-size: 1.15em;
-    color:white;
+    color: white;
     line-height: 150%;
 }
+
 code {
     font-size: 1.2em;
 }
@@ -33,19 +35,21 @@ code {
 main.index {
     display: flex;
 }
-main.index section:not:first-child      {
+
+main.index section:not:first-child {
     background-color: yellow;
 }
+
 main.index section:first-child {
-    width:400px;
+    width: 400px;
 }
 
 
 main.two-column {
     display: flex;
 }
-main.two-column section 
-{
+
+main.two-column section {
     flex: 1;
     margin-right: 20px;
 }
@@ -54,20 +58,39 @@ main.two-column section.small {
     flex: 1;
     width: min-content;
 }
+
 main.two-column section.large {
     flex: 5;
 }
+
 main.two-column section.fifty {
     width: 50%;
     min-width: 500px;
 }
 
-footer li, ol.links li {
+li {
+    margin-bottom: 2px;
+}
+
+footer li,
+ol.links li {
     font-size: 1.4em;
+
 }
+
 pre {
-    color:#8be9fd;
+    color: #8be9fd;
+    font-size: 1.2em;
+    display: inline;
+    /* Maakt de pre-tag inline zodat het in de flow van de paragraaf past */
+    white-space: pre;
+    /* Behoudt de witruimte binnen de pre-tag */
+    margin: 0;
+    /* Optioneel, verwijdert de standaardmarge van pre-tags */
+    padding: 0;
+    /* Optioneel, vermindert de padding binnen de pre-tag */
 }
+
 a {
     color: white;
 }
@@ -83,7 +106,7 @@ tag {
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic);
 
 blockquote {
-    margin:0;
+    margin: 0;
     font-size: 1.2em;
 
     font-style: italic;

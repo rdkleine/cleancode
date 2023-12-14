@@ -1,0 +1,168 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dracula.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7 - State (management)</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>State (mangement)</h1>
+    </header>
+    <main class="two-column">
+        <section>
+            <p>Formulieren en modellen hebben voor een state. In het geval van een formulier (modified/unmodified, valid/invalid). (db) Modellen kan het bijvoorbeeld een added/modified/deleted state hebben.</p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </section>
+    </main>
+    <main class="two-column">
+        <section>
+            <b>Niet doen</b>
+            <ul>
+                <li>
+                    <tag>1</tag> Afhandelen van onspecifieke fouten (
+                    <pre>System.Exception</pre>)
+                </li>
+                <li>
+                    <tag>2</tag> Voorkom lege
+                    <pre>catch</pre> blokken
+                </li>
+                <li>
+                    <tag>3</tag> Exception gebruiken als flow handling
+                </li>
+            </ul>
+            </p>
+        </section>
+        <section>
+            <b>Doen</b>
+            <ul>
+                <li>
+                    <tag>1</tag> Afhandelen van specifieke fouten (bv
+                    <pre>System.ArgumentNullException</pre>)
+                </li>
+                <li>
+                    <tag>2</tag> Gebruik
+                    <pre>finally</pre> om in een goede staat terug te komen of ..
+                </li>
+                <li>
+                    <tag>3</tag> <b>L</b>og <b>A</b>lle <b>F</b>outen (als je ze niet afhandeld)
+                </li>
+                <!-- <li><tag>4</tag> Handel fouten netjes af</li> -->
+            </ul>
+        </section>
+        <!-- <section>
+            <blockquote>
+                Leave the code cleaner than you found it.
+                <br/>~ (uncle Bob) Robert C. Martin - From "Clean Code: A Handbook of Agile Software Craftsmanship"
+            </blockquote>
+            <img src="./img/boy-scout-rule.png" width="50%">
+        </section> -->
+    </main>
+    <main class="two-column">
+        <section class="fifty">
+            <pre><code class="csharp">
+namespace CleanCode;
+public class ExceptionHandling
+{
+    private IService someService;
+    
+    public Double SomeCalcAction(int id)
+    {
+        try
+        {
+            var input = PrepCalculation()
+            return someService.RunCalcuation();
+        }
+        // (1) Dit is een "Catch All" die alle Exceptions afhandeld.
+        catch(Exception ex)
+        {
+            // (2) ignore
+        }
+        return Double.NaN;
+    }
+
+    private Double PrepCalculation(int id)
+    {
+        var result = someService.LoadCalc(id);
+        if (result is null)
+        {
+            // (3) Gooi fout door naar aanroeper ipv hier een afhandeling te maken.
+            throw new Exception("Null from service");
+        }
+        return result;
+    }
+}
+        </code></pre>
+        </section>
+        <section class="fifty">
+            <pre><code class="csharp">
+namespace CleanCode;
+public class ExceptionHandling
+{
+    private IService someService;
+
+    public Double? SomeCalcAction(int id)
+    {
+        try
+        {
+            var input = PrepCalculation()
+            if (input is null)
+                return null;
+
+            return someService.RunCalcuation();
+        }
+        // (2) Handel fouten of als die verwacht worden. In het dotnet framework wordt dit vaak in de documentatie gemeld welke er te verwachten zijn.
+        //   Bijvoorbeeld Decimal.ToString geeft mogelijk een FormatException terug 
+        //   https://learn.microsoft.com/en-us/dotnet/api/system.decimal.tostring?view=net-7.0#system-decimal-tostring(system-string-system-iformatprovider)
+        catch(ArithmeticException ex)
+        {
+            // (3)
+            logger.LogError(ex);
+        }
+        //-> Handel geen globale exception af als je er niks mee doet. Daar zijn UnhandledExceptionHandlers voor.
+        finally()
+        {
+            // (2) Zorg voor een nette afhandeling (als dit kan)
+            return Double.NaN;
+        }
+    }
+    
+    private Double? PrepCalculation(int id)
+    {
+        var result = someService.LoadCalc(id);
+        if (result is null)
+        {
+            // (3) log unexpected result?
+        }
+        return result;
+    }
+}
+                
+                </code></pre>
+        </section>
+    </main>
+    <footer>
+        <h2>Referenties</h2>
+        <ul>
+            <li>
+                <a
+                    href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/exceptions/exception-handling">learn.microsoft.com</a>
+                Exception Handling (C# Programming Guide)
+            </li>
+        </ul>
+    </footer>
+</body>
+
+</html>
+<script>hljs.highlightAll();</script>

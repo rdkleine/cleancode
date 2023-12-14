@@ -1,14 +1,16 @@
 # Topics
 - [x] Nullables
 - [x] Denesting code
-- [x]  Naming
-- [x]  Public / Private
-- [x]  Boyscout rules
-- [ ]  Caching
-- [ ]  Statics / State (global state)
-- [ ]  Usings
+- [x] Access modifiers
+- [x] Naming conventions
+- [x] Boy scout rule
+
+- [x] Exception handling
+- [ ] State
+- [ ] Caching
+- [ ] Statics / State (global state)
+- [ ] Usings
 - [90%] Yagni / dsttcpw
-- Exception handling
 - Dependency injection
 - Code Reviews
 - Pair Programming
