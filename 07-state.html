@@ -27,129 +27,76 @@
         </section>
     </main>
     <main class="two-column">
-        <section>
-            <b>Niet doen</b>
-            <ul>
-                <li>
-                    <tag>1</tag> Afhandelen van onspecifieke fouten (
-                    <pre>System.Exception</pre>)
-                </li>
-                <li>
-                    <tag>2</tag> Voorkom lege
-                    <pre>catch</pre> blokken
-                </li>
-                <li>
-                    <tag>3</tag> Exception gebruiken als flow handling
-                </li>
-            </ul>
-            </p>
-        </section>
-        <section>
-            <b>Doen</b>
-            <ul>
-                <li>
-                    <tag>1</tag> Afhandelen van specifieke fouten (bv
-                    <pre>System.ArgumentNullException</pre>)
-                </li>
-                <li>
-                    <tag>2</tag> Gebruik
-                    <pre>finally</pre> om in een goede staat terug te komen of ..
-                </li>
-                <li>
-                    <tag>3</tag> <b>L</b>og <b>A</b>lle <b>F</b>outen (als je ze niet afhandeld)
-                </li>
-                <!-- <li><tag>4</tag> Handel fouten netjes af</li> -->
-            </ul>
-        </section>
-        <!-- <section>
-            <blockquote>
-                Leave the code cleaner than you found it.
-                <br/>~ (uncle Bob) Robert C. Martin - From "Clean Code: A Handbook of Agile Software Craftsmanship"
-            </blockquote>
-            <img src="./img/boy-scout-rule.png" width="50%">
-        </section> -->
-    </main>
-    <main class="two-column">
         <section class="fifty">
             <pre><code class="csharp">
-namespace CleanCode;
-public class ExceptionHandling
-{
-    private IService someService;
-    
-    public Double SomeCalcAction(int id)
+&lt;EditForm EditContext="editContext" OnValidSubmit="Submit" FormName="Starship8"&gt;
+    &lt;div&gt;
+        &lt;label&gt;
+            &lt;InputCheckbox @bind-Value="Model!.Subsystem1" /&gt;
+            Safety Subsystem
+        &lt;/label&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;ValidationMessage For="() =&gt; Model!.Options" /&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;button type="submit"&gt;Update&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/EditForm&gt;                
+@code {
+    private EditContext? editContext;
+
+    [SupplyParameterFromForm]
+    public Holodeck? Model { get; set; }
+
+    private ValidationMessageStore? messageStore;
+
+    protected override void OnInitialized()
     {
-        try
-        {
-            var input = PrepCalculation()
-            return someService.RunCalcuation();
-        }
-        // (1) Dit is een "Catch All" die alle Exceptions afhandeld.
-        catch(Exception ex)
-        {
-            // (2) ignore
-        }
-        return Double.NaN;
+        Model ??= new();
+        editContext = new(Model);
+        editContext.OnValidationRequested += HandleValidationRequested;
+        messageStore = new(editContext);
     }
 
-    private Double PrepCalculation(int id)
+    private void HandleValidationRequested(object? sender,
+        ValidationRequestedEventArgs args)
     {
-        var result = someService.LoadCalc(id);
-        if (result is null)
-        {
-            // (3) Gooi fout door naar aanroeper ipv hier een afhandeling te maken.
-            throw new Exception("Null from service");
-        }
-        return result;
-    }
-}
-        </code></pre>
-        </section>
-        <section class="fifty">
-            <pre><code class="csharp">
-namespace CleanCode;
-public class ExceptionHandling
-{
-    private IService someService;
+        messageStore?.Clear();
 
-    public Double? SomeCalcAction(int id)
-    {
-        try
+        // Custom validation logic
+        if (!Model!.Options)
         {
-            var input = PrepCalculation()
-            if (input is null)
-                return null;
+            messageStore?.Add(() => Model.Options, "Select at least one.");
+        }
+    }
 
-            return someService.RunCalcuation();
-        }
-        // (2) Handel fouten of als die verwacht worden. In het dotnet framework wordt dit vaak in de documentatie gemeld welke er te verwachten zijn.
-        //   Bijvoorbeeld Decimal.ToString geeft mogelijk een FormatException terug 
-        //   https://learn.microsoft.com/en-us/dotnet/api/system.decimal.tostring?view=net-7.0#system-decimal-tostring(system-string-system-iformatprovider)
-        catch(ArithmeticException ex)
-        {
-            // (3)
-            logger.LogError(ex);
-        }
-        //-> Handel geen globale exception af als je er niks mee doet. Daar zijn UnhandledExceptionHandlers voor.
-        finally()
-        {
-            // (2) Zorg voor een nette afhandeling (als dit kan)
-            return Double.NaN;
-        }
-    }
-    
-    private Double? PrepCalculation(int id)
+    private void Submit()
     {
-        var result = someService.LoadCalc(id);
-        if (result is null)
-        {
-            // (3) log unexpected result?
-        }
-        return result;
+        Logger.LogInformation("Submit called: Processing the form");
     }
-}
+
+    public class Holodeck
+    {
+        public bool Subsystem1 { get; set; }
+        public bool Subsystem2 { get; set; }
+        public bool Options => Subsystem1 || Subsystem2;
+    }
+
+    public void Dispose()
+    {
+        if (editContext is not null)
+        {
+            editContext.OnValidationRequested -= HandleValidationRequested;
+        }
+    }
+}       
+                                </code></pre>            
+            <pre>
                 
-                </code></pre>
+        <section class="fifty">
+            asd
         </section>
     </main>
     <footer>
