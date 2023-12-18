@@ -9,42 +9,37 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8 - Magic Numbers</title>
+    <title>9 - Secure coding</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <header>
-        <h1>Magic Numbers</h1>
+        <h1>Secure coding</h1>
     </header>
     <main class="two-column">
-        <section>
-            Magic Numbers zijn waarden die op zich zelf geen context of intentie
-            verschaffen.<br>
-            <pre>If (id == -1) {} else if (id == 0)</pre> bijvoorbeeld. Zonder eerst op zoek te gaan naar wat -1 of 0
-            mogelijk zou kunnen zijn en waarom dit is ben je even verder.<br>
-            Vervang je 0 door een
-            <pre>const int NewRecord</pre> en -1 door
-            <pre>const int NullValue</pre> dan is de intentie direct duidelijk.<br>
-            Magic Numbers zijn niet beperkt tot numbers, ook strings vallen hieronder. Bijvoorbeeld "new" of "record" of wat dan ook. Op zich zelf kun je bij "new" a
+        <section class="fifty">
+            We werken regelmatig met gevoelige data. Om ervoor te zorgen dat deze data alleen beschikbaar is moet je defensief programmeren. Sterker nog beschouw elke input/aanroep als een aanval op je systeem.<br>
+            Denk hierbij bijvoorbeeld aan:
+            <ul>
+                <li><b>Inputvalidatie</b> Sql injection. Id's gebruiken waartoe de gebruiker geen rechten zou moeten hebben. Deeploaden van pagina's dmv van queries aan te passen. Websocket messages aanpassen zodat er id's gebruikt worden waar geen rechten voor zijn.</li>
+                <li><b>Authenticatie en autorisatie</b> Op pagina's <b>en</b> service methodes altijd controleren of de gebruiker is ingelogd en voldoende rechten heeft.</li>
+                <li><b>Minimalisatie van privileges</b> Minimale autorisatie implementeren</li>
+                <li><b>Versluiteling van gegevens</b> Gevoelige gegevens versleutelen zodat met bijvoorbeeld een sql query geen gevoelige data zomaar opgevraagd kan worden.</li>
+            </ul>            
+        </section>
+        <section class="fifty">
+            <blockquote>
+                Security is a process, not a product
+                <br/>~ Bruce Schneier - <em>This quote underscores the idea that secure coding is an ongoing process that requires continuous attention and adaptation, rather than a one-time effort.</em>
+            </blockquote>
         </section>
     </main>
     <main class="two-column">
         <section class="fifty">
-            Voorkom Magic Numbers (of strings) door een van de volgende technieken te gebruiken:
-            <ul>
-                <li><b>Named Constant</b> <pre>const int AmDossierEindRapport = 42</pre></li>
-                <li><b>Named Constant</b> <pre>const string Meneer = "Meneer"</pre></li>
-                <li><b>Enum</b> <pre>enum DossierStatus { New, InProgress, Done }</pre></li>
-                <li><b>Class</b> <pre>class DossierStatus { <br/>public const int New = 0; public const int InProgress = 1; public const int Done = 2; }</pre></li>
-                <li><b>Comment</b> En als je echt een magic number/string wil gebruiken voeg dan commentaar toe.</li>
-            </ul>
         </section>
         <section class="fifty">
-            <blockquote>
-                Any constant, other than 0 or 1, that appears in your program is a magic number. 
-                <br/>~ Michael Feathers, author of "Working Effectively with Legacy Code".
-            </blockquote>
+          
         </section>
     </main>
     <main class="two-column">
@@ -134,9 +129,8 @@ public class ExceptionHandling
         <h2>Referenties</h2>
         <ul>
             <li>
-                <a
-                    href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/exceptions/exception-handling">learn.microsoft.com</a>
-                Exception Handling (C# Programming Guide)
+                <a href="https://www.schneier.com/essays/archives/2000/04/the_process_of_secur.html">www.schneier.com</a>
+                The Process of Security
             </li>
         </ul>
     </footer>

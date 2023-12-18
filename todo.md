@@ -7,7 +7,7 @@
 
 - [x] Exception handling
 - [.] State
-- [.] Magic numbers
+- [90%] Magic numbers
 - [.] Secure Coding
 - [ ] Caching
 

@@ -53,32 +53,28 @@
 namespace CleanCode;
 public class MagicNumbers
 {
-    private IService someService;
-    
-    public Double SomeCalcAction(int id)
+    public void SomeAction(int id, int idRecordType)
     {
-        try
+        string type = "";
+        switch (idRecordType)
         {
-            var input = PrepCalculation()
-            return someService.RunCalcuation();
+            case 1:
+                type = "Apple";
+                break;
+            case 2:
+                type = "Google";
+                break;
+            case 3:
+                type = "Microsoft";
+                break;
         }
-        // (1) Dit is een "Catch All" die alle Exceptions afhandeld.
-        catch(Exception ex)
-        {
-            // (2) ignore
-        }
-        return Double.NaN;
+
+        SaveChanges(id, type);
     }
 
-    private Double PrepCalculation(int id)
+    private void SaveAction(int id, string systemType)
     {
-        var result = someService.LoadCalc(id);
-        if (result is null)
-        {
-            // (3) Gooi fout door naar aanroeper ipv hier een afhandeling te maken.
-            throw new Exception("Null from service");
-        }
-        return result;
+        // implementation
     }
 }
         </code></pre>
@@ -86,44 +82,39 @@ public class MagicNumbers
         <section class="fifty">
             <pre><code class="csharp">
 namespace CleanCode;
-public class ExceptionHandling
+public class MagicNumbers
 {
-    private IService someService;
-
-    public Double? SomeCalcAction(int id)
+    private const string Apple = "Apple";
+    private const string Google = "Google";
+    private const string Microsoft = "Microsoft";
+    public enum RecordType 
     {
-        try
-        {
-            var input = PrepCalculation()
-            if (input is null)
-                return null;
-
-            return someService.RunCalcuation();
-        }
-        // (2) Handel fouten of als die verwacht worden. In het dotnet framework wordt dit vaak in de documentatie gemeld welke er te verwachten zijn.
-        //   Bijvoorbeeld Decimal.ToString geeft mogelijk een FormatException terug 
-        //   https://learn.microsoft.com/en-us/dotnet/api/system.decimal.tostring?view=net-7.0#system-decimal-tostring(system-string-system-iformatprovider)
-        catch(ArithmeticException ex)
-        {
-            // (3)
-            logger.LogError(ex);
-        }
-        //-> Handel geen globale exception af als je er niks mee doet. Daar zijn UnhandledExceptionHandlers voor.
-        finally()
-        {
-            // (2) Zorg voor een nette afhandeling (als dit kan)
-            return Double.NaN;
-        }
+        Apple = 1,
+        Google = 2,
+        Microsoft = 3
     }
-    
-    private Double? PrepCalculation(int id)
+    public void SomeAction(int id, int idRecordType)
     {
-        var result = someService.LoadCalc(id);
-        if (result is null)
+        string type = "";
+        switch (idRecordType)
         {
-            // (3) log unexpected result?
+            case RecordType.Apple:
+                type = Apple;
+                break;
+            case RecordType.Google:
+                type = Google;
+                break;
+            case RecordType.Microsoft:
+                type = Microsoft;
+                break;
         }
-        return result;
+
+        SaveChanges(id, type);
+    }
+
+    private void SaveAction(int id, string systemType)
+    {
+        // implementation
     }
 }
                 
@@ -135,8 +126,8 @@ public class ExceptionHandling
         <ul>
             <li>
                 <a
-                    href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/exceptions/exception-handling">learn.microsoft.com</a>
-                Exception Handling (C# Programming Guide)
+                    href="https://en.wikipedia.org/wiki/Magic_number_(programming)">en.wikipedia.org</a>
+                    Magic number (programming)
             </li>
         </ul>
     </footer>

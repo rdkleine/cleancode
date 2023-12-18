@@ -140,3 +140,7 @@ blockquote span {
     font-weight: bold;
     margin-top: 1em;
 }
+blockquote em{
+    color: #555555;
+    font-size: 0.8em;
+}
