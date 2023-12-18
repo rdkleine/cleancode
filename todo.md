@@ -6,15 +6,15 @@
 - [x] Boy scout rule
 
 - [x] Exception handling
-- [.] State
+- [40%] State
 - [90%] Magic numbers
-- [.] Secure Coding
-- [ ] Caching
+- [60%] Secure Coding
+- [90%] Yagni / dsttcpw
 
+- [ ] Caching
 - [ ] Statics / State (global state)
 - [ ] Usings
 
-- [90%] Yagni / dsttcpw
 - Dependency injection
 - Code Reviews
 - Pair Programming

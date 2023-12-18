@@ -19,19 +19,25 @@
     </header>
     <main class="two-column">
         <section class="fifty">
-            We werken regelmatig met gevoelige data. Om ervoor te zorgen dat deze data alleen beschikbaar is moet je defensief programmeren. Sterker nog beschouw elke input/aanroep als een aanval op je systeem.<br>
+            We werken regelmatig met gevoelige data. Om ervoor te zorgen dat deze data alleen beschikbaar is moet je
+            defensief programmeren. Sterker nog beschouw elke input/aanroep als een aanval op je systeem.<br>
             Denk hierbij bijvoorbeeld aan:
             <ul>
-                <li><b>Inputvalidatie</b> Sql injection. Id's gebruiken waartoe de gebruiker geen rechten zou moeten hebben. Deeploaden van pagina's dmv van queries aan te passen. Websocket messages aanpassen zodat er id's gebruikt worden waar geen rechten voor zijn.</li>
-                <li><b>Authenticatie en autorisatie</b> Op pagina's <b>en</b> service methodes altijd controleren of de gebruiker is ingelogd en voldoende rechten heeft.</li>
+                <li><b>Inputvalidatie</b> Sql injection. Id's gebruiken waartoe de gebruiker geen rechten zou moeten
+                    hebben. Deeploaden van pagina's dmv van queries aan te passen. Websocket messages aanpassen zodat er
+                    id's gebruikt worden waar geen rechten voor zijn.</li>
+                <li><b>Authenticatie en autorisatie</b> Op pagina's <b>en</b> service methodes altijd controleren of de
+                    gebruiker is ingelogd en voldoende rechten heeft.</li>
                 <li><b>Minimalisatie van privileges</b> Minimale autorisatie implementeren</li>
-                <li><b>Versluiteling van gegevens</b> Gevoelige gegevens versleutelen zodat met bijvoorbeeld een sql query geen gevoelige data zomaar opgevraagd kan worden.</li>
-            </ul>            
+                <li><b>Versluiteling van gegevens</b> Gevoelige gegevens versleutelen zodat met bijvoorbeeld een sql
+                    query geen gevoelige data zomaar opgevraagd kan worden.</li>
+            </ul>
         </section>
         <section class="fifty">
             <blockquote>
                 Security is a process, not a product
-                <br/>~ Bruce Schneier - <em>This quote underscores the idea that secure coding is an ongoing process that requires continuous attention and adaptation, rather than a one-time effort.</em>
+                <br />~ Bruce Schneier - <em>This quote underscores the idea that secure coding is an ongoing process
+                    that requires continuous attention and adaptation, rather than a one-time effort.</em>
             </blockquote>
         </section>
     </main>
@@ -39,89 +45,16 @@
         <section class="fifty">
         </section>
         <section class="fifty">
-          
+
         </section>
     </main>
     <main class="two-column">
         <section class="fifty">
             <pre><code class="csharp">
-namespace CleanCode;
-public class MagicNumbers
-{
-    private IService someService;
-    
-    public Double SomeCalcAction(int id)
-    {
-        try
-        {
-            var input = PrepCalculation()
-            return someService.RunCalcuation();
-        }
-        // (1) Dit is een "Catch All" die alle Exceptions afhandeld.
-        catch(Exception ex)
-        {
-            // (2) ignore
-        }
-        return Double.NaN;
-    }
-
-    private Double PrepCalculation(int id)
-    {
-        var result = someService.LoadCalc(id);
-        if (result is null)
-        {
-            // (3) Gooi fout door naar aanroeper ipv hier een afhandeling te maken.
-            throw new Exception("Null from service");
-        }
-        return result;
-    }
-}
         </code></pre>
         </section>
         <section class="fifty">
             <pre><code class="csharp">
-namespace CleanCode;
-public class ExceptionHandling
-{
-    private IService someService;
-
-    public Double? SomeCalcAction(int id)
-    {
-        try
-        {
-            var input = PrepCalculation()
-            if (input is null)
-                return null;
-
-            return someService.RunCalcuation();
-        }
-        // (2) Handel fouten of als die verwacht worden. In het dotnet framework wordt dit vaak in de documentatie gemeld welke er te verwachten zijn.
-        //   Bijvoorbeeld Decimal.ToString geeft mogelijk een FormatException terug 
-        //   https://learn.microsoft.com/en-us/dotnet/api/system.decimal.tostring?view=net-7.0#system-decimal-tostring(system-string-system-iformatprovider)
-        catch(ArithmeticException ex)
-        {
-            // (3)
-            logger.LogError(ex);
-        }
-        //-> Handel geen globale exception af als je er niks mee doet. Daar zijn UnhandledExceptionHandlers voor.
-        finally()
-        {
-            // (2) Zorg voor een nette afhandeling (als dit kan)
-            return Double.NaN;
-        }
-    }
-    
-    private Double? PrepCalculation(int id)
-    {
-        var result = someService.LoadCalc(id);
-        if (result is null)
-        {
-            // (3) log unexpected result?
-        }
-        return result;
-    }
-}
-                
                 </code></pre>
         </section>
     </main>
@@ -129,7 +62,8 @@ public class ExceptionHandling
         <h2>Referenties</h2>
         <ul>
             <li>
-                <a href="https://www.schneier.com/essays/archives/2000/04/the_process_of_secur.html">www.schneier.com</a>
+                <a
+                    href="https://www.schneier.com/essays/archives/2000/04/the_process_of_secur.html">www.schneier.com</a>
                 The Process of Security
             </li>
         </ul>

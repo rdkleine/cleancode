@@ -19,11 +19,54 @@
     </header>
     <main class="two-column">
         <section>
-            <p>Formulieren en modellen hebben voor een state. In het geval van een formulier (modified/unmodified, valid/invalid). (db) Modellen kan het bijvoorbeeld een added/modified/deleted state hebben.</p>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
+            <b>Formulieren:</b> Wanneer we het hebben over de staat van een formulier, gaat het vaak om twee soorten
+            statussen:
+            <ul>
+                <li>
+                    Modified/Unmodified: Dit geeft aan of de gebruiker de gegevens in het formulier heeft gewijzigd. Een
+                    'unmodified' staat betekent dat de gegevens nog niet zijn aangepast, terwijl 'modified' betekent dat
+                    de gebruiker de gegevens in het formulier heeft gewijzigd.
+                </li>
+                <li>
+                    Valid/Invalid: Dit heeft betrekking op de geldigheid van de ingevoerde gegevens. Een 'valid' staat
+                    betekent dat de gegevens correct zijn ingevoerd volgens de validatieregels (bijvoorbeeld de juiste
+                    formaten en vereiste velden zijn ingevuld), terwijl 'invalid' betekent dat er fouten zijn in de
+                    ingevoerde gegevens.
+                </li>
+            </ul>
+            <b>ASP.Net EditContext</b>
+            <p>
+                De EditContext klasse helpt bij het beheren van de staat en validatie van formulieren. Het biedt verschillende functies om meta-informatie over het bewerkingsproces te beheren en bij te houden. Dit omvat functies om te controleren of een formulier is gewijzigd, of het geldig is, en om validatieberichten weer te geven. Dit is vooral nuttig in complexere formulierscenario's waar de staat en validiteit van meerdere velden of gegevens modellen beheerd moeten worden.<br/>
+                Todo:<br>
+                - Validate<br>
+                - Unmodified state<br>
+                - Set specific state<br>
+            </p>
+        </section>
+        <section>
+            <b>(Database) Modellen:</b> In de (EF) context van database operaties kunnen modellen verschillende statussen
+            hebben, zoals:
+            <ul>
+                <li>
+                    Added: Het model is nieuw en moet nog in de database worden ingevoerd.
+                </li>
+                <li>
+                    Modified: Het model bestaat al in de database, maar sommige gegevens zijn gewijzigd en moeten worden
+                    bijgewerkt.
+                </li>
+                <li>
+                    Deleted: Het model is gemarkeerd om verwijderd te worden uit de database.
+                </li>
+            </ul>
+            <p>
+                Binnen EF werk je altijd op een locale state. Bijvoorbeeld wanneer je een nieuwe record toevoegd aan de state of een model ophaalt uit de database.<br>
+                Pas op het moment dat de SaveChanges(Async) wordt uitgevoerd worden locale wijzigingen doorgevoerd naar de database.<br>
+                De (db)Context heeft een aantal functies op de state (changetracking) van modellen te beheren. Zoals:<br>
+                <ul>
+                    <li><b>Entry</b> Geeft tracking informatie terug. Hierbij kun je de bijvoorbeeld de verschillen voor en na wijzigingen in zien. Of welke state het object heeft (added/modified etc)</li>
+                    <li><b>[tabel/entity].Local</b> Geeft informatie over de lokale cache voor de specifieke tabel</li>
+                </ul>
+            </p>
         </section>
     </main>
     <main class="two-column">
@@ -92,11 +135,25 @@
         }
     }
 }       
-                                </code></pre>            
+                                </code></pre>
             <pre>
-                
+            </section>
+
         <section class="fifty">
-            asd
+            <pre><code class="csharp">
+namespace CleanCode;
+public class StateService
+{
+    public async Task ModifyStateAsync(int shipId)
+    {
+        var starship = await _context.Starships.FirstAsync(ss => ss.Id == shipId);
+        starship.Name = "USS Enterprise";
+        if (_context.Entry(starship).State == EntityState.Modified)
+            await _context.SaveChangesAsync();
+    }
+}
+
+            </code></pre>
         </section>
     </main>
     <footer>
@@ -113,3 +170,20 @@
 
 </html>
 <script>hljs.highlightAll();</script>
+
+
+<!--
+
+Formulieren: Wanneer we het hebben over de staat van een formulier, gaat het vaak om twee soorten statussen:
+
+Modified/Unmodified: Dit geeft aan of de gebruiker de gegevens in het formulier heeft gewijzigd. Een 'unmodified' staat betekent dat de gegevens nog niet zijn aangepast, terwijl 'modified' betekent dat de gebruiker de gegevens in het formulier heeft gewijzigd.
+Valid/Invalid: Dit heeft betrekking op de geldigheid van de ingevoerde gegevens. Een 'valid' staat betekent dat de gegevens correct zijn ingevoerd volgens de validatieregels (bijvoorbeeld de juiste formaten en vereiste velden zijn ingevuld), terwijl 'invalid' betekent dat er fouten zijn in de ingevoerde gegevens.
+(Database) Modellen: In de context van database operaties kunnen modellen verschillende statussen hebben, zoals:
+
+Added: Het model is nieuw en moet nog in de database worden ingevoerd.
+Modified: Het model bestaat al in de database, maar sommige gegevens zijn gewijzigd en moeten worden bijgewerkt.
+Deleted: Het model is gemarkeerd om verwijderd te worden uit de database.
+ASP.NET EditContext: In ASP.NET helpt het EditContext model bij het beheren van de staat en validatie van formulieren. Het biedt verschillende functies om meta-informatie over het bewerkingsproces te beheren en bij te houden. Dit omvat functies om te controleren of een formulier is gewijzigd, of het geldig is, en om validatieberichten weer te geven. Dit is vooral nuttig in complexere formulierscenario's waar de staat en validiteit van meerdere velden of gegevens modellen beheerd moeten worden.
+
+
+-->
