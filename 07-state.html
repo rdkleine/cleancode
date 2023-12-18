@@ -37,10 +37,14 @@
             <b>ASP.Net EditContext</b>
             <p>
                 De EditContext klasse helpt bij het beheren van de staat en validatie van formulieren. Het biedt verschillende functies om meta-informatie over het bewerkingsproces te beheren en bij te houden. Dit omvat functies om te controleren of een formulier is gewijzigd, of het geldig is, en om validatieberichten weer te geven. Dit is vooral nuttig in complexere formulierscenario's waar de staat en validiteit van meerdere velden of gegevens modellen beheerd moeten worden.<br/>
-                Todo:<br>
-                - Validate<br>
-                - Unmodified state<br>
-                - Set specific state<br>
+
+                <ul>
+                    <li><b>Validate</b> voert de formvalidatie uit</li>
+                    <li><b>IsModified</b> of het formulier gewijzigd is</li>
+                    <li><b>MarkAsUnmodified</b> zet het formulier in unmodified mode</li>
+                    <li><b>MarkAsUnmodified(fieldName)</b> zet een veld op unmodified</li>
+                    <li><b>NotifyFieldChanged(fieldName)</b> geef aan dat een waarde van een veld is gewijzigd</li>
+                </ul>
             </p>
         </section>
         <section>
@@ -118,6 +122,11 @@
     private void Submit()
     {
         Logger.LogInformation("Submit called: Processing the form");
+        // Action savechanges
+        // ..
+
+        // Set form to unmodified
+        EditContext.MarkAsUnmodified();
     }
 
     public class Holodeck
@@ -146,13 +155,18 @@ public class StateService
 {
     public async Task ModifyStateAsync(int shipId)
     {
+        // _context.Starships.Local bevat na de GET pas een record
         var starship = await _context.Starships.FirstAsync(ss => ss.Id == shipId);
+
+        // _context.Entry(starship).State == EntityState.Unchanged
+        // Nadat de Name is aangepast veranderd de state naar Modified
         starship.Name = "USS Enterprise";
+
+        // Zodra de SaveChangesAsync wordt aangeroepen worden de wijzigingen naar de database doorgevoerds
         if (_context.Entry(starship).State == EntityState.Modified)
             await _context.SaveChangesAsync();
     }
 }
-
             </code></pre>
         </section>
     </main>
