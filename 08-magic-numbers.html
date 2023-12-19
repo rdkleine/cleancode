@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/dracula.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+<link rel="icon" type="image/webp" href="img/icon2.png">
 
 <!doctype html>
 <html lang="en">
@@ -18,7 +19,7 @@
         <h1>Magic Numbers</h1>
     </header>
     <main class="two-column">
-        <section>
+        <section class="fifty">
             Magic Numbers zijn waarden die op zich zelf geen context of intentie
             verschaffen.<br>
             <pre>If (id == -1) {} else if (id == 0)</pre> bijvoorbeeld. Zonder eerst op zoek te gaan naar wat -1 of 0
@@ -26,7 +27,15 @@
             Vervang je 0 door een
             <pre>const int NewRecord</pre> en -1 door
             <pre>const int NullValue</pre> dan is de intentie direct duidelijk.<br>
-            Magic Numbers zijn niet beperkt tot numbers, ook strings vallen hieronder. Bijvoorbeeld "new" of "record" of wat dan ook. Op zich zelf kun je bij "new" a
+            <p>
+                Magic Numbers zijn niet beperkt tot numbers, ook strings vallen hieronder. Bijvoorbeeld "new" of "record" of wat dan ook. Op zich zelf kun je bij "new" al wel begrijpen dat het om een nieuw record gaat. Maar over het algemeen is het beter om hier constanten te gebruiken. Wanneer iemand het nodig vind om "new" te veranderen in "nieuw" dan kan het voorkomen dat er ergens een "new" over het hoofd wordt gezien. Dit kan tot onverwachte resultaten leiden.
+            </p>
+        </section>
+        <section class="fifty">
+            <blockquote>
+                Any constant, other than 0 or 1, that appears in your program is a magic number. 
+                <br/>~ Michael Feathers, author of "Working Effectively with Legacy Code".
+            </blockquote>
         </section>
     </main>
     <main class="two-column">
@@ -41,10 +50,7 @@
             </ul>
         </section>
         <section class="fifty">
-            <blockquote>
-                Any constant, other than 0 or 1, that appears in your program is a magic number. 
-                <br/>~ Michael Feathers, author of "Working Effectively with Legacy Code".
-            </blockquote>
+           
         </section>
     </main>
     <main class="two-column">

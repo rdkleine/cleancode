@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/dracula.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+<link rel="icon" type="image/webp" href="img/icon2.png">
 
 <!doctype html>
 <html lang="en">
@@ -43,19 +44,73 @@
     </main>
     <main class="two-column">
         <section class="fifty">
+            <pre><code class="csharp">
+namespace CleanCode;
+public class SecureCoding
+{
+    public void SaveThing(Thing thing)
+    {
+        _dbContext.Things.Add(thing);
+        _dbContext.SaveChanges();
+    }
+
+    public Thing GetThing(int idThing)
+    {
+        return _dbContext.Things.FirstOrDefault(x => x.Id == idThing);
+    }
+}
+</code></pre>
+<h2>Top 10 Web Application Security Risks</h2>
+<ol>
+   <li><b>Broken Access Control</b> Missende controle op toegang tot data. Bijvoorbeeld een document opvragen met een id, dit id wijzigen en dan bij het document kunnen komen.</li> 
+   <li>Cryptographic Faillures</li> 
+   <li><b>Injection</b> Gebruiker input wordt niet 'gesaniteerd', gevalideerd of gefilterd. (SQL / XSS)</li> 
+   <li><b>Insecure Design</b> Secure design als onderdeel van het hele software process. Vanuit de stories, in testscenarios en unit/integratie testen.</li> 
+   <li>Security Misconfiguration</li> 
+   <li>Vulnerable and Outdated Components</li> 
+   <li>Identification and Authentication Failures</li> 
+   <li>Software and Data Integrity Failures</li> 
+   <li><b>Security Logging and Monitoring Faillures</b> Actief loggen van audit events (logins, gefaalde logins). Warnings en errors loggen. Pen tests uitvoeren en zorgen dat dit in de logging terug te vinden is. Actief monitoren op logs.</li> 
+   <li>Server-Side Request Forgery</li>
+</ol>
         </section>
         <section class="fifty">
+            <pre><code class="csharp">
+namespace CleanCode;
+public class SecureCoding
+{
+    [Authorize(Role = "WorkerRole")]
+    public void SaveThing(Thing thing)
+    {
+        // Prefent SQL injection by escaping single quotes
+        thing.Description = thing.Description.Replace("'", "''");
+        // Replace html tags with html chars to prefent javascript injection / XSS
+        thing.Description = thing.Description.Replace("<", "&lt;").Replace(">", "&gt;");
+        thing.SecureData = Encrypt(thing.SecureData);
+        _dbContext.Things.Add(thing);
+        _dbContext.SaveChanges();
+    }
 
+    [Authorize(Role = "WorkerRole")]
+    public Thing GetThing(int idThing)
+    {
+        var thing = _dbContext
+            .Things
+            .WorkerThings
+            .Where(x => x.WorkerId == _currentUser.Id)
+            .FirstOrDefault(x => x.Id == idThing);
+        thing.SecureData = Decrypt(thing.SecureData);
+        return thing;
+    }
+}
+        </code></pre>
         </section>
     </main>
     <main class="two-column">
         <section class="fifty">
-            <pre><code class="csharp">
-        </code></pre>
+
         </section>
         <section class="fifty">
-            <pre><code class="csharp">
-                </code></pre>
         </section>
     </main>
     <footer>
@@ -63,8 +118,8 @@
         <ul>
             <li>
                 <a
-                    href="https://www.schneier.com/essays/archives/2000/04/the_process_of_secur.html">www.schneier.com</a>
-                The Process of Security
+                    href="https://owasp.org/www-project-top-ten/">owasp.org</a>
+                    Top 10 Web Application Security Risks
             </li>
         </ul>
     </footer>
